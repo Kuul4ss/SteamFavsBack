@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SteamFavsBack</string>
+    <string name="welcome">Bienvenue !</string>
+    <string name="connection_message">Veuillez-vous connecter ou créer un nouveau compte pour utiliser l\'application</string>
+    <string name="email">E-mail</string>
+    <string name="password">Mot de passe</string>
+    <string name="login">Se connecter</string>
+    <string name="create_new_account">Créer un nouveau compte</string>
+    <string name="forgotten_password_question">Mot de passe oublié ?</string>
+
+    <string name="sign_up">Inscription</string>
+    <string name="sign_up_message">Veuillez saisir ces différentes informations afin que vos listes soient sauvegardées.</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="password_verification">Verification du mot de passe</string>
+    <string name="sign_on">S\'inscrire</string>
+
+    <string name="forgotten_password">Mot de passe oublié</string>
+    <string name="forgotten_password_message">Veuillez saisir votre email afin de réinitialiser votre mot de passe.</string>
+    <string name="send_password">Renvoyer mon mot de passe</string>
+</resources>

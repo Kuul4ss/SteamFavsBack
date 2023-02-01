@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/connectionFragment">
+    <fragment
+        android:id="@+id/connectionFragment"
+        android:name="com.example.steam.ConnectionFragment"
+        android:label="fragment_connection"
+        tools:layout="@layout/fragment_connection" >
+        <action
+            android:id="@+id/action_connectionFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_connectionFragment_to_forgottenPasswordFragment"
+            app:destination="@id/forgottenPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.steam.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/forgottenPasswordFragment"
+        android:name="com.example.steam.ForgottenPasswordFragment"
+        android:label="fragment_forgotten_password"
+        tools:layout="@layout/fragment_forgotten_password" />
+</navigation>

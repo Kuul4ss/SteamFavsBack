@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+    android:background="@color/primary"
+    tools:context=".SignUpFragment">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="@string/sign_up"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="354dp"
+            android:layout_height="86dp"
+            android:layout_marginBottom="48dp"
+            android:text="@string/sign_up_message"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:ignore="MissingConstraints" />
+
+        <include
+            android:id="@+id/username"
+            layout="@layout/fragment_edit_text"
+            android:layout_width="364dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="12dp" />
+
+        <include
+            android:id="@+id/email"
+            layout="@layout/fragment_edit_text"
+            android:layout_width="364dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="44dp" />
+
+        <include
+            android:id="@+id/password"
+            layout="@layout/fragment_edit_text"
+            android:layout_width="364dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="44dp" />
+
+        <include
+            android:id="@+id/password_verif"
+            layout="@layout/fragment_edit_text"
+            android:layout_width="364dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="44dp" />
+
+        <include
+            android:id="@+id/button_signup"
+            layout="@layout/fragment_button"
+            android:layout_width="362dp"
+            android:layout_height="68dp"/>
+
+    </LinearLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        tools:context=".ConnectionFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/primary"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:text="@string/welcome"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="354dp"
+            android:layout_height="86dp"
+            android:layout_marginBottom="48dp"
+            android:text="@string/connection_message"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:ignore="MissingConstraints" />
+
+        <include
+            android:id="@+id/email"
+            layout="@layout/fragment_edit_text"
+            android:layout_width="364dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="12dp" />
+
+        <include
+            android:id="@+id/password"
+            layout="@layout/fragment_edit_text"
+            android:layout_width="364dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="44dp" />
+
+        <include
+            android:id="@+id/button_login"
+            layout="@layout/fragment_button"
+            android:layout_width="362dp"
+            android:layout_height="68dp" />
+
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="360dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@android:color/transparent"
+        android:background="@drawable/button_border"
+        android:text="@string/forgotten_password_question"
+        android:textColor="@color/white" />
+
+    <Button
+            android:id="@+id/button_forgot"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/transparent"
+            android:text="@string/forgotten_password_question"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
