@@ -1,72 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/primary"
         tools:context=".ConnectionFragment"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/primary"
-        tools:ignore="UselessParent">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="72dp"
-            android:text="@string/welcome"
-            android:textColor="@color/white"
-            android:textSize="40sp"
-            tools:ignore="MissingConstraints" />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="324dp"
+        android:layout_height="64dp"
+        android:text="@string/welcome"
+        android:textAlignment="center"
+        android:textColor="@color/white"
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="354dp"
-            android:layout_height="86dp"
-            android:layout_marginBottom="48dp"
-            android:text="@string/connection_message"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            tools:ignore="MissingConstraints" />
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75"
+        tools:ignore="MissingConstraints" />
 
-        <include
-            android:id="@+id/email"
-            layout="@layout/fragment_edit_text"
-            android:layout_width="364dp"
-            android:layout_height="46dp"
-            android:layout_marginBottom="12dp" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="342dp"
+        android:layout_height="86dp"
+        android:layout_marginBottom="56dp"
+        android:text="@string/connection_message"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.623"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
-        <include
-            android:id="@+id/password"
-            layout="@layout/fragment_edit_text"
-            android:layout_width="364dp"
-            android:layout_height="46dp"
-            android:layout_marginBottom="44dp" />
+    <include
+        android:id="@+id/email"
+        layout="@layout/fragment_edit_text"
+        android:layout_width="364dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="252dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/button_login"
-            layout="@layout/fragment_button"
-            android:layout_width="362dp"
-            android:layout_height="68dp" />
+    <include
+        android:id="@+id/password"
+        layout="@layout/fragment_edit_text"
+        android:layout_width="364dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <include
+        android:id="@+id/button_login"
+        layout="@layout/fragment_button"
+        android:layout_width="367dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <Button
         android:id="@+id/button_signup"
-        android:layout_width="360dp"
-        android:layout_height="60dp"
+        android:layout_width="367dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@android:color/transparent"
-        android:background="@drawable/button_border"
         android:text="@string/forgotten_password_question"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_login"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
 
     <Button
-            android:id="@+id/button_forgot"
+        android:id="@+id/button_forgot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/transparent"
+        android:text="@string/forgotten_password_question"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_signup"
+        app:layout_constraintVertical_bias="0.736"
+        tools:ignore="MissingConstraints" />
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@android:color/transparent"
-            android:text="@string/forgotten_password_question"
-            android:textColor="@color/white" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>

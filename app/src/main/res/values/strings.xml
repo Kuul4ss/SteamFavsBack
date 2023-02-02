@@ -23,4 +23,6 @@
 
     <string name="opinion">Opinion</string>
     <string name="description">Description</string>
+
+    <string name="learnMore">Learn more</string>
 </resources>

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.steam.ReqResponse.MostPlayedGames.MostPlayedGames
+import com.example.steam.ReqResponse.MostPlayedGames.Rank
 
 import com.example.steam.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.steam.databinding.FragmentItemBinding
@@ -14,7 +16,7 @@ import com.example.steam.databinding.FragmentItemBinding
  * TODO: Replace the implementation with code for your data type.
  */
 class MyItemRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
+    private val values: MutableList<Rank>
 ) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,8 +33,8 @@ class MyItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.idView.text = item.appid.toString()
+        holder.contentView.text = item.rank.toString()
     }
 
     override fun getItemCount(): Int = values.size

@@ -1,21 +1,20 @@
 package com.example.steam
 
-import android.media.Image
-import android.opengl.Visibility
 import android.os.Bundle
-import android.text.InputType
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.core.view.get
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.steam.ReqResponse.MostPlayedGames.APISteam
+import com.example.steam.ReqResponse.MostPlayedGames.MPGList
+import com.example.steam.ReqResponse.MostPlayedGames.MostPlayedGames
+import com.example.steam.ReqResponse.MostPlayedGames.Rank
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -39,7 +38,8 @@ class SearchFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-
+    lateinit var mpgList: ArrayList<Rank>
+    lateinit var list: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +79,10 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        this.list = (view.findViewById<RecyclerView>(R.id.search_list)) as RecyclerView;
+
+
         val api = Retrofit.Builder()
             .baseUrl("https://api.steampowered.com")
             .addConverterFactory(
@@ -91,13 +95,21 @@ class SearchFragment : Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val games = withContext(Dispatchers.IO)
-                { api.getMotPlayedGames().await() }
-                System.out.println(games)
+                val list = withContext(Dispatchers.IO)
+                { api.getMostPlayedGames().await() }.response
+                storeList(list);
             } catch (e: Exception) {
 
             }
         }
+
+    }
+
+    fun storeList(r: MPGList) {
+        this.mpgList = r.ranks as ArrayList<Rank>;
+        this.list.adapter = MyItemRecyclerViewAdapter(mpgList)
+        this.list.layoutManager = LinearLayoutManager(this.context)
+
     }
 
 }

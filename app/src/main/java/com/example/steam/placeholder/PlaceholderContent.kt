@@ -1,5 +1,8 @@
 package com.example.steam.placeholder
 
+import com.example.steam.ReqResponse.MostPlayedGames.MPGResponse
+import com.example.steam.ReqResponse.MostPlayedGames.MostPlayedGames
+import com.example.steam.ReqResponse.MostPlayedGames.Rank
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -9,35 +12,26 @@ import java.util.HashMap
  *
  * TODO: Replace all uses of this class before publishing your app.
  */
-object PlaceholderContent {
+class PlaceholderContent(val r: MPGResponse) {
 
     /**
      * An array of sample (placeholder) items.
      */
-    val ITEMS: MutableList<PlaceholderItem> = ArrayList()
+    var items: MutableList<PlaceholderItem> = ArrayList()
 
-    /**
-     * A map of sample (placeholder) items, by ID.
-     */
-    val ITEM_MAP: MutableMap<String, PlaceholderItem> = HashMap()
+    private val COUNT = r.response.ranks.size
 
-    private val COUNT = 25
+    private fun addItem(item: Rank) {
+        items.add(PlaceholderItem(item.appid.toString(), item.rank.toString()))
+    }
 
     init {
-        // Add some sample items.
-        for (i in 1..COUNT) {
-            addItem(createPlaceholderItem(i))
+        val iterator = this.r.response.ranks.iterator()
+        for(r:Rank in this.r.response.ranks) {
+            addItem(r)
         }
     }
 
-    private fun addItem(item: PlaceholderItem) {
-        ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
-    }
-
-    private fun createPlaceholderItem(position: Int): PlaceholderItem {
-        return PlaceholderItem(position.toString(), "Item " + position, makeDetails(position))
-    }
 
     private fun makeDetails(position: Int): String {
         val builder = StringBuilder()
@@ -48,10 +42,13 @@ object PlaceholderContent {
         return builder.toString()
     }
 
+
     /**
      * A placeholder item representing a piece of content.
      */
-    data class PlaceholderItem(val id: String, val content: String, val details: String) {
-        override fun toString(): String = content
+    data class PlaceholderItem(val appid: String, val rank: String) {
+        override fun toString(): String {
+            return "PlaceholderItem(appid='$appid', rank='$rank')"
+        }
     }
 }

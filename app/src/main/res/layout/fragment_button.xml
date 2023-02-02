@@ -9,6 +9,6 @@
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
-        android:backgroundTint="@color/accent"/>
+        android:layout_height="65dp"
+        android:backgroundTint="@color/accent" />
 </FrameLayout>

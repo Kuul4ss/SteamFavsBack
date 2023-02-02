@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
+    android:textColor="@color/white"
     tools:context=".SearchFragment">
 
     <LinearLayout
@@ -11,28 +13,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editTextTextPersonName"
+            <SearchView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="text"
-                android:text="Name" />
+                android:layout_height="wrap_content" >
+            </SearchView>
 
-
-
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:src="@android:drawable/btn_dropdown" />
 
         <TextView
             android:id="@+id/textView3"
