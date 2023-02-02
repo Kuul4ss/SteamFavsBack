@@ -1,21 +1,11 @@
 package com.example.steam
 
-import android.media.Image
-import android.opengl.Visibility
 import android.os.Bundle
-import android.text.InputType
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.view.get
-import androidx.recyclerview.widget.RecyclerView
-import com.example.steam.ReqResponse.MostPlayedGames.APISteam
+import com.example.steam.ReqResponse.APISteam
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -93,6 +83,26 @@ class SearchFragment : Fragment() {
             try {
                 val games = withContext(Dispatchers.IO)
                 { api.getMotPlayedGames().await() }
+                System.out.println(games)
+            } catch (e: Exception) {
+
+            }
+        }
+
+        val apiSteamCommunity = Retrofit.Builder()
+            .baseUrl("https://steamcommunity.com/")
+            .addConverterFactory(
+                GsonConverterFactory.create())
+            .addCallAdapterFactory(
+                CoroutineCallAdapterFactory()
+            )
+            .build()
+            .create(APISteam::class.java)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val games = withContext(Dispatchers.IO)
+                { apiSteamCommunity.getGames("battle").await() }
                 System.out.println(games)
             } catch (e: Exception) {
 
