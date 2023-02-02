@@ -108,7 +108,7 @@ class ConnectionFragment : Fragment() {
         }
 
         loginButton.setOnClickListener {
-            tryToConnect();
+            tryToConnect(view);
         }
 
     }
@@ -121,7 +121,7 @@ class ConnectionFragment : Fragment() {
         v.findNavController().navigate(R.id.forgottenPasswordFragment)
     }
 
-    fun tryToConnect() {
+    fun tryToConnect(v: View) {
         val email: String = this.emailInput.text.toString()
         val password: String = this.passwordInput.text.toString()
 
@@ -132,6 +132,7 @@ class ConnectionFragment : Fragment() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
+                    v.findNavController().navigate(R.id.searchFragment)
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
