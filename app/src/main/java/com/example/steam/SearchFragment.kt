@@ -1,12 +1,14 @@
 package com.example.steam
 
+import android.media.Image
+import android.opengl.Visibility
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.get
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -98,6 +100,26 @@ class SearchFragment : Fragment() {
                 val list = withContext(Dispatchers.IO)
                 { api.getMostPlayedGames().await() }.response
                 storeList(list);
+            } catch (e: Exception) {
+
+            }
+        }
+
+        val apiSteamCommunity = Retrofit.Builder()
+            .baseUrl("https://steamcommunity.com/")
+            .addConverterFactory(
+                GsonConverterFactory.create())
+            .addCallAdapterFactory(
+                CoroutineCallAdapterFactory()
+            )
+            .build()
+            .create(APISteam::class.java)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val games = withContext(Dispatchers.IO)
+                { apiSteamCommunity.getGames("battle").await() }
+                System.out.println(games)
             } catch (e: Exception) {
 
             }
