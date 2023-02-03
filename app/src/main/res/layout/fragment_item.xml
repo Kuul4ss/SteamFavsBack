@@ -37,7 +37,7 @@
             android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="42dp"
-            android:text="TextView" />
+            android:text="@string/free" />
     </LinearLayout>
 
     <Button

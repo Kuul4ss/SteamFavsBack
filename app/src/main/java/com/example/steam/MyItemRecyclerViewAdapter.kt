@@ -1,10 +1,13 @@
 package com.example.steam.fragment
 
+import android.os.Bundle
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import com.example.steam.R
 import com.example.steam.databinding.FragmentItemBinding
 
@@ -34,9 +37,17 @@ class MyItemRecyclerViewAdapter(
         val item = values[position]
         holder.nameText.text = item.name
         holder.editorText.text = item.editor
-        holder.priceView.text = item.price
+        if(item.price != "null") {
+            holder.priceView.text = item.price
+        }
         holder.button.setOnClickListener {
-
+            var b = Bundle()
+            b.putString("name", item.name)
+            b.putString("editor", item.editor)
+            b.putString("price", item.price)
+            b.putString("id", item.id)
+            b.putString("description", item.description)
+            holder.itemView.findNavController().navigate(R.id.gameDetailFragment, b)
         }
     }
 

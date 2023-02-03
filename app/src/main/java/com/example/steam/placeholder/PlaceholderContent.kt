@@ -18,7 +18,7 @@ object PlaceholderContent {
 
     private val COUNT = 25
 
-    fun add(name: String, editor: ArrayList<String>?, price: String) {
+    fun add(name: String, editor: ArrayList<String>?, price: String, id: String, description: String) {
         var ediFinal = editor?.get(0)
         if (editor != null) {
             for(s in editor.subList(1, editor.size)) {
@@ -26,17 +26,17 @@ object PlaceholderContent {
             }
         }
         if (ediFinal != null) {
-            addItem(name, ediFinal, price)
+            addItem(name, ediFinal, price, id, description)
         }
     }
 
-    private fun addItem(name: String, editor: String, price: String) {
-        ITEMS.add(PlaceholderItem(name, editor, price))
+    private fun addItem(name: String, editor: String, price: String, id: String, description: String) {
+        ITEMS.add(PlaceholderItem(name, editor, price, id, description))
         println(ITEMS[ITEMS.size-1])
     }
 
     private fun createPlaceholderItem(position: Int): PlaceholderItem {
-        return PlaceholderItem(position.toString(), "Item " + position, makeDetails(position))
+        return PlaceholderItem(position.toString(), "Item " + position, makeDetails(position), "", "")
 
     }
 
@@ -52,9 +52,9 @@ object PlaceholderContent {
     /**
      * A placeholder item representing a piece of content.
      */
-    data class PlaceholderItem(val name: String, val editor: String, val price: String) {
+    data class PlaceholderItem(val name: String, val editor: String, val price: String, val id: String, val description: String) {
         override fun toString(): String {
-            return "PlaceholderItem(name='$name', editor='$editor', price='$price')"
+            return "PlaceholderItem(name='$name', editor='$editor', price='$price', id='$id', id='$description')"
         }
     }
 }

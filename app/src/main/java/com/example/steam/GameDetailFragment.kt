@@ -81,10 +81,13 @@ class GameDetailFragment : Fragment() {
 
         this.gameImage = (view.findViewById<FrameLayout>(R.id.game_image)) as ImageView
         this.gameName = (view.findViewById<FrameLayout>(R.id.game_name)) as TextView
+        gameName.text = arguments?.getString("name") ?: ""
         this.gameEditor = (view.findViewById<FrameLayout>(R.id.game_editor)) as TextView
+        gameEditor.text = arguments?.getString("editor") ?: ""
         this.descriptionButton = (view.findViewById<FrameLayout>(R.id.description_button)) as Button
         this.opinionButton = (view.findViewById<FrameLayout>(R.id.opinion_button)) as Button
         this.descriptionMessage = (view.findViewById<FrameLayout>(R.id.description_message)) as TextView
+        descriptionMessage.text = arguments?.getString("description") ?: ""
         this.opinionList = (view.findViewById<FrameLayout>(R.id.opinion_list)) as RecyclerView
 
         opinionButton.setOnClickListener {

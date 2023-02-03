@@ -134,7 +134,9 @@ class SearchFragment : Fragment() {
                     PlaceholderContent.add(
                         res.game.data?.name.toString(),
                         res.game.data?.publishers,
-                        res.game.data?.price_overview?.final_formatted.toString()
+                        res.game.data?.price_overview?.final_formatted.toString(),
+                        i.appid.toString(),
+                        res.game.data?.detailed_description.toString()
                     )
                 } catch (e: Exception) {
 
