@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -53,7 +54,7 @@ class ConnectionFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if (auth.currentUser != null) {
-            System.out.println("Home")
+            //view?.findNavController()?.navigate(R.id.searchFragment)
         }
     }
 
