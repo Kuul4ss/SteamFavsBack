@@ -1,22 +1,21 @@
-package com.example.steam
+package com.example.steam.fragment
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.example.steam.ReqResponse.MostPlayedGames.MostPlayedGames
-import com.example.steam.ReqResponse.MostPlayedGames.Rank
-
-import com.example.steam.placeholder.PlaceholderContent.PlaceholderItem
+import com.example.steam.R
 import com.example.steam.databinding.FragmentItemBinding
+
+import com.example.steam.fragment.placeholder.PlaceholderContent.PlaceholderItem
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
 class MyItemRecyclerViewAdapter(
-    private val values: MutableList<Rank>
+    private val values: List<PlaceholderItem>
 ) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,19 +32,30 @@ class MyItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.appid.toString()
-        holder.contentView.text = item.rank.toString()
+        holder.nameText.text = item.name
+        holder.editorText.text = item.editor
+        holder.priceView.text = item.price
+        holder.button.setOnClickListener {
+
+        }
+    }
+
+    private fun goToDetail(id: Integer) {
+
     }
 
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val idView: TextView = binding.itemNumber
-        val contentView: TextView = binding.content
-
+        val nameText: TextView = binding.name
+        val editorText: TextView = binding.editor
+        val priceView: TextView = binding.price
+        val button: TextView = binding.button
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return "ViewHolder(nameText=$nameText, editorText=$editorText, priceView=$priceView)"
         }
+
+
     }
 
 }

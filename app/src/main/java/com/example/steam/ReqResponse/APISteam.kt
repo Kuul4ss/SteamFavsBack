@@ -9,8 +9,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface APISteam {
-    @GET("/ISteamChartsService/GetMostPlayedGames/v1/?")
-    fun getMotPlayedGames() : Deferred<MostPlayedGames.MPGResponse>
+    @GET("ISteamChartsService/GetMostPlayedGames/v1/?")
+    fun getMostPlayedGames() : Deferred<MostPlayedGames.MPGResponse>
 
     @GET("appdetails")
     fun getGameById(@Query("appids") id: String): Deferred<GameById.SteamGameByIdResponse>

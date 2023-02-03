@@ -1,7 +1,6 @@
-package com.example.steam
+package com.example.steam.fragment
 
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,16 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.setFragmentResultListener
-import com.example.steam.ReqResponse.MostPlayedGames.Rank
-import com.example.steam.placeholder.PlaceholderContent
+import com.example.steam.R
+import com.example.steam.fragment.placeholder.PlaceholderContent
 
 /**
  * A fragment representing a list of Items.
  */
 class ItemFragment : Fragment() {
-
-    lateinit var list: ArrayList<Rank>
 
     private var columnCount = 1
 
@@ -28,7 +24,6 @@ class ItemFragment : Fragment() {
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
-
     }
 
     override fun onCreateView(
@@ -36,11 +31,7 @@ class ItemFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        setFragmentResultListener("requestKey") { key, bundle ->
-            // Any type can be passed via to the bundle
-            this.list = bundle.getParcelableArrayList("list")!!
 
-        }
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -48,7 +39,7 @@ class ItemFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapter(ArrayList<Rank>())
+                adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
             }
         }
         return view

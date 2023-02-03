@@ -1,27 +1,24 @@
 package com.example.steam
 
-import android.media.Image
-import android.opengl.Visibility
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.core.view.get
-import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.example.steam.ReqResponse.MostPlayedGames.APISteam
-import com.example.steam.ReqResponse.MostPlayedGames.MPGList
+import com.example.myapplication.SteamGameByIdResponseDeserializer
+import com.example.steam.ReqResponse.APISteam
+import com.example.steam.ReqResponse.GameById.GameById
 import com.example.steam.ReqResponse.MostPlayedGames.MostPlayedGames
-import com.example.steam.ReqResponse.MostPlayedGames.Rank
+import com.example.steam.fragment.MyItemRecyclerViewAdapter
+import com.example.steam.fragment.placeholder.PlaceholderContent
+import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
+import okhttp3.internal.wait
+import okhttp3.internal.waitMillis
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -40,8 +37,9 @@ class SearchFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    lateinit var mpgList: ArrayList<Rank>
+    lateinit var mpgList: ArrayList<MostPlayedGames.Rank>
     lateinit var list: RecyclerView
+    lateinit var items: ArrayList<PlaceholderContent.PlaceholderItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +49,36 @@ class SearchFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        generateAdapter()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val api = Retrofit.Builder()
+            .baseUrl("https://api.steampowered.com/")
+            .addConverterFactory(
+                GsonConverterFactory.create())
+            .addCallAdapterFactory(
+                CoroutineCallAdapterFactory()
+            )
+            .build()
+            .create(APISteam::class.java)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val list = withContext(Dispatchers.IO)
+                { api.getMostPlayedGames().await() }.response
+                convertList(list);
+            } catch (e: Exception) {
+
+            }
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
@@ -81,57 +105,52 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.list = view.findViewById(R.id.search_list) as RecyclerView
 
-        this.list = (view.findViewById<RecyclerView>(R.id.search_list)) as RecyclerView;
+    }
 
-
+    suspend fun convertList(r: MostPlayedGames.MPGList) {
+        this.mpgList = r.ranks as ArrayList<MostPlayedGames.Rank>
         val api = Retrofit.Builder()
-            .baseUrl("https://api.steampowered.com")
+            .baseUrl("https://store.steampowered.com/api/")
             .addConverterFactory(
-                GsonConverterFactory.create())
+                GsonConverterFactory.create(
+                    GsonBuilder()
+                        .registerTypeAdapter(GameById.SteamGameByIdResponse::class.java, SteamGameByIdResponseDeserializer())
+                        .create()
+                )
+            )
             .addCallAdapterFactory(
                 CoroutineCallAdapterFactory()
             )
             .build()
             .create(APISteam::class.java)
 
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val list = withContext(Dispatchers.IO)
-                { api.getMostPlayedGames().await() }.response
-                storeList(list);
-            } catch (e: Exception) {
+        for(i in this.mpgList) {
+            GlobalScope.async(Dispatchers.Main) {
+                try {
+                    val res = withContext(Dispatchers.IO)
+                    { api.getGameById(i.appid.toString()).await() }
+                    PlaceholderContent.add(
+                        res.game.data?.name.toString(),
+                        res.game.data?.publishers,
+                        res.game.data?.price_overview?.final_formatted.toString()
+                    )
+                } catch (e: Exception) {
 
-            }
-        }
+                }
+            }.await().apply { generateAdapter() }
 
-        val apiSteamCommunity = Retrofit.Builder()
-            .baseUrl("https://steamcommunity.com/")
-            .addConverterFactory(
-                GsonConverterFactory.create())
-            .addCallAdapterFactory(
-                CoroutineCallAdapterFactory()
-            )
-            .build()
-            .create(APISteam::class.java)
-
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val games = withContext(Dispatchers.IO)
-                { apiSteamCommunity.getGames("battle").await() }
-                System.out.println(games)
-            } catch (e: Exception) {
-
-            }
         }
 
     }
 
-    fun storeList(r: MPGList) {
-        this.mpgList = r.ranks as ArrayList<Rank>;
-        this.list.adapter = MyItemRecyclerViewAdapter(mpgList)
-        this.list.layoutManager = LinearLayoutManager(this.context)
-
+    private fun generateAdapter() {
+        var adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+        this.list.adapter = null;
+        this.list.layoutManager = null;
+        this.list.adapter = adapter;
+        this.list.layoutManager = LinearLayoutManager(this.context);
     }
 
 }

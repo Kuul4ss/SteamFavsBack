@@ -24,10 +24,10 @@ class GameById {
     data class Price(
         val currency:String,
         val initial:String,
-        val final:Int?,
-        val discount_percent:Int?,
+        val final:String?,
+        val discount_percent:String?,
         val initial_formatted:String?,
-        val final_formatted:Int?
+        val final_formatted:String?
     )
 
 }

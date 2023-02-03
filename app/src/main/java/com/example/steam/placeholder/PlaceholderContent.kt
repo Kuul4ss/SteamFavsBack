@@ -1,10 +1,6 @@
-package com.example.steam.placeholder
+package com.example.steam.fragment.placeholder
 
-import com.example.steam.ReqResponse.MostPlayedGames.MPGResponse
-import com.example.steam.ReqResponse.MostPlayedGames.MostPlayedGames
-import com.example.steam.ReqResponse.MostPlayedGames.Rank
-import java.util.ArrayList
-import java.util.HashMap
+import kotlin.collections.ArrayList
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -12,26 +8,37 @@ import java.util.HashMap
  *
  * TODO: Replace all uses of this class before publishing your app.
  */
-class PlaceholderContent(val r: MPGResponse) {
+object PlaceholderContent {
 
     /**
      * An array of sample (placeholder) items.
      */
-    var items: MutableList<PlaceholderItem> = ArrayList()
+    val ITEMS: MutableList<PlaceholderItem> = ArrayList()
 
-    private val COUNT = r.response.ranks.size
 
-    private fun addItem(item: Rank) {
-        items.add(PlaceholderItem(item.appid.toString(), item.rank.toString()))
-    }
+    private val COUNT = 25
 
-    init {
-        val iterator = this.r.response.ranks.iterator()
-        for(r:Rank in this.r.response.ranks) {
-            addItem(r)
+    fun add(name: String, editor: ArrayList<String>?, price: String) {
+        var ediFinal = editor?.get(0)
+        if (editor != null) {
+            for(s in editor.subList(1, editor.size)) {
+                ediFinal = "$ediFinal, $s"
+            }
+        }
+        if (ediFinal != null) {
+            addItem(name, ediFinal, price)
         }
     }
 
+    private fun addItem(name: String, editor: String, price: String) {
+        ITEMS.add(PlaceholderItem(name, editor, price))
+        println(ITEMS[ITEMS.size-1])
+    }
+
+    private fun createPlaceholderItem(position: Int): PlaceholderItem {
+        return PlaceholderItem(position.toString(), "Item " + position, makeDetails(position))
+
+    }
 
     private fun makeDetails(position: Int): String {
         val builder = StringBuilder()
@@ -42,13 +49,12 @@ class PlaceholderContent(val r: MPGResponse) {
         return builder.toString()
     }
 
-
     /**
      * A placeholder item representing a piece of content.
      */
-    data class PlaceholderItem(val appid: String, val rank: String) {
+    data class PlaceholderItem(val name: String, val editor: String, val price: String) {
         override fun toString(): String {
-            return "PlaceholderItem(appid='$appid', rank='$rank')"
+            return "PlaceholderItem(name='$name', editor='$editor', price='$price')"
         }
     }
 }
